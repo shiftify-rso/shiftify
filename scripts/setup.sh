@@ -24,6 +24,10 @@ git -C "$DIR" submodule sync --quiet --recursive
 git -C "$DIR" submodule update --init --recursive
 git -C "$DIR" submodule foreach --quiet 'git checkout -q main && git pull -q --ff-only && echo "  $sm_path @ $(git log -1 --format=%h)"'
 
+# 3. pulls rebase local commits instead of creating merge commits
+git -C "$DIR" config pull.rebase true
+git -C "$DIR" submodule foreach --quiet 'git config pull.rebase true'
+
 echo "==> done: $(cd "$DIR" && pwd)"
 if command -v gh >/dev/null && ! gh auth status >/dev/null 2>&1; then
   echo "note: run 'gh auth login' (then 'gh auth setup-git') before pushing"

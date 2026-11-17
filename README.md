@@ -4,6 +4,7 @@ Shift scheduling for small organizations: rule-aware schedule editing, an auto-s
 
 - [General spec](docs/SPEC.md): what we build, plus every decided technology
 - [Microservices guide](docs/microservices-guide.md): the lecture best practices behind those decisions
+- [Build plan](docs/build-plan.md): build order (walking skeleton first)
 - [Service spec template](docs/service-spec-template.md)
 - [AGENTS.md](AGENTS.md): rules for AI coding agents
 
@@ -42,6 +43,18 @@ Open the **`shiftify` root** in your editor or agent, not a single service. The 
 - **Changing a decided item** means editing `docs/SPEC.md` first, in its own PR, agreed by the team.
 
 **Why:** there are 11 repos and 3 people. Specs are the only place where the whole picture lives.
+
+### Docs per repo
+Each component repo documents itself, so someone with only that repo can understand, run and reuse the service:
+
+| File | Contents |
+|---|---|
+| `README.md` | what it does, how to run and test it locally, configuration |
+| `SPEC.md` | design and resolved `[O-n]` decisions |
+| `contracts/` | OpenAPI / AsyncAPI / proto / GraphQL schema, event JSON Schemas |
+| `docs/` | optional: diagrams, runbooks, longer notes |
+
+These are updated in the same PR as the code. This repo only holds cross-service docs.
 
 ### Branches and PRs
 - **Only `main` exists long-term.** Work happens on short-lived branches, e.g. `staff-crud`.

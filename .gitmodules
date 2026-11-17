@@ -1,0 +1,44 @@
+[submodule "services/staff"]
+	path = services/staff
+	url = ../staff.git
+	branch = main
+[submodule "services/auth"]
+	path = services/auth
+	url = ../auth.git
+	branch = main
+[submodule "services/notification"]
+	path = services/notification
+	url = ../notification.git
+	branch = main
+[submodule "services/schedule"]
+	path = services/schedule
+	url = ../schedule.git
+	branch = main
+[submodule "services/rules"]
+	path = services/rules
+	url = ../rules.git
+	branch = main
+[submodule "services/availability"]
+	path = services/availability
+	url = ../availability.git
+	branch = main
+[submodule "services/swap"]
+	path = services/swap
+	url = ../swap.git
+	branch = main
+[submodule "services/autoscheduler"]
+	path = services/autoscheduler
+	url = ../autoscheduler.git
+	branch = main
+[submodule "bff"]
+	path = bff
+	url = ../bff.git
+	branch = main
+[submodule "web"]
+	path = web
+	url = ../web.git
+	branch = main
+[submodule "infra"]
+	path = infra
+	url = ../infra.git
+	branch = main

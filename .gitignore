@@ -1,0 +1,8 @@
+# Course material kept local
+prijava/
+navodila.md
+
+# Editors / OS
+.idea/
+.vscode/
+.DS_Store

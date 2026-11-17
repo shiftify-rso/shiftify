@@ -319,12 +319,14 @@ This section fixes who talks to whom, about what, and whether the call is sync o
 
 ## 13. Repositories
 GitHub org [`shiftify-rso`](https://github.com/shiftify-rso), all repos public, Apache-2.0:
-- **One repo per component** (`staff`, `auth`, `schedule`, `rules`, `availability`, `swap`, `autoscheduler`, `notification`, `bff`, `web`). Each holds:
-  - code
-  - Helm chart
-  - its `SPEC.md`
-  - its contracts (OpenAPI / AsyncAPI / proto / GraphQL schema)
-  - its CI
+- **One repo per component** (`staff`, `auth`, `schedule`, `rules`, `availability`, `swap`, `autoscheduler`, `notification`, `bff`, `web`). Each repo is **self-documenting**: someone who only has that repo can understand, run and reuse the service. Each holds:
+  - code, Helm chart, CI
+  - `README.md`: what the service does, how to run and test it locally, its configuration (env vars, secret names)
+  - `SPEC.md`: design and resolved `[O-n]` decisions (from the template)
+  - `contracts/`: OpenAPI / AsyncAPI / proto / GraphQL schema, plus event JSON Schemas
+  - `docs/` (optional): anything longer, such as diagrams, runbooks or notes
+
+  These docs are updated in the same PR as the code they describe. The `shiftify` repo only holds cross-service docs.
 - **`infra`**:
   - OpenTofu
   - Argo CD applications

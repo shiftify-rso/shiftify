@@ -16,14 +16,22 @@ shiftify/                     main repo (this one): docs and submodules
 ├── bff/  web/  infra/        submodules
 └── prijava/, navodila.md     local-only course files; gitignored, never commit or publish
 ```
-- **Every submodule is a separate repo** under `github.com/shiftify-rso`, with its own `SPEC.md`, contracts (`contracts/`: OpenAPI, AsyncAPI, proto, GraphQL), Helm chart and CI.
+- **Every submodule is a separate, self-documenting repo** under `github.com/shiftify-rso`. Each has:
+  - `README.md`: what it does, how to run and test it, its config
+  - `SPEC.md`: design and resolved `[O-n]` decisions
+  - `contracts/`: OpenAPI, AsyncAPI, proto, GraphQL, event JSON Schemas
+  - optional `docs/`
+  - a Helm chart and CI
+
+  Service-specific docs live in that service's repo. This repo only holds cross-service docs.
+- **Build order:** see [`docs/build-plan.md`](docs/build-plan.md).
 - **Git commands for a component run inside its folder.** The root repo only tracks submodule pointers, and those are bumped at release time only (README → Releases).
 
 ## Roles
 The developer works from the root. One **orchestrator** agent holds the project context, and **workers** implement single components.
 
 **Orchestrator** (the agent started in the root):
-- Reads `docs/SPEC.md` and the relevant service specs, then plans the work and splits it per component.
+- Reads `docs/SPEC.md`, `docs/build-plan.md` and the relevant service specs, then plans the work and splits it per component.
 - Delegates each component's work to a worker, with precise scope: repo folder, task, spec sections, and the contracts the worker may rely on.
 - **Owns all communication with the developer.** It collects open questions from workers and asks them in batches (see Asking).
 - Coordinates cross-service changes. Contract changes are agreed first, and the producer is changed before its consumers.
@@ -33,7 +41,8 @@ The developer works from the root. One **orchestrator** agent holds the project 
 - Works **only inside its assigned component folder**. It reads other repos only to understand contracts it consumes.
 - Reads the component's `SPEC.md` and the referenced general SPEC sections first.
 - **Never guesses on a choice** that falls under the ask policy. It stops, or keeps going on the unblocked parts, and returns the question with options and a recommendation to the orchestrator.
-- Ends with a short report: what changed, which tests ran and their results, any spec updates, and open questions.
+- Keeps the component's `README.md`, `SPEC.md` and `contracts/` accurate, in the same PR as the code.
+- Ends with a short report: what changed, which tests ran and their results, any doc or spec updates, and open questions.
 
 ## Asking the developer
 Ask before deciding on any of these:
@@ -52,7 +61,7 @@ How to ask:
 - **`docs/SPEC.md` is binding.** Everything not tagged `[O-n]` is decided. Its terminology applies: it's *department*, never "sector".
 - **An `[O-n]` gets resolved** by asking (above), then recording the result in that service's `SPEC.md` table "Resolved open decisions": the ID, the choice and a one-line reason.
 - **Changing a decided item** requires the developer's agreement and a PR to `docs/SPEC.md` first. Code must never silently contradict the spec.
-- **Spec and code change together:** update the service `SPEC.md` (and its contracts) in the same PR as the code.
+- **Spec, docs and code change together:** update the service `SPEC.md`, `README.md` and contracts in the same PR as the code.
 - **New service specs** start from `docs/service-spec-template.md`.
 - **Spec and doc style:** slim, core features first. No architecture essays unless asked. Record decisions, not narratives.
 

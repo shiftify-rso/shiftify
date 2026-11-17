@@ -29,5 +29,14 @@ curl -fsSL https://raw.githubusercontent.com/shiftify-rso/shiftify/main/scripts/
 ```
 This clones the repo into `./shiftify` (or updates an existing clone) and checks every submodule out on `main` at its latest commit. Rerun it any time to update everything. From inside a clone, run `scripts/setup.sh .`
 
+## Releases
+Submodule pointers are only bumped at release or demo time, in a PR:
+```sh
+git switch -c release/v0.1.0
+git submodule update --remote && git commit -am "bump submodules for v0.1.0"
+gh pr create --fill && gh pr merge --squash --delete-branch
+git switch main && git pull && git tag v0.1.0 && git push --tags
+```
+
 ## License
 [Apache-2.0](LICENSE)

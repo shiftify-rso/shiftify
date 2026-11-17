@@ -23,10 +23,11 @@ Every component is its own repo, included here as a submodule.
 | `web` | [web](https://github.com/shiftify-rso/web) |
 | `infra` | [infra](https://github.com/shiftify-rso/infra) |
 
+## Setup
 ```sh
-git clone --recurse-submodules https://github.com/shiftify-rso/shiftify.git
-git submodule update --remote   # pull the latest main of every component
+curl -fsSL https://raw.githubusercontent.com/shiftify-rso/shiftify/main/scripts/setup.sh | bash
 ```
+This clones the repo into `./shiftify` (or updates an existing clone) and checks every submodule out on `main` at its latest commit. Rerun it any time to update everything. From inside a clone, run `scripts/setup.sh .`
 
 ## License
 [Apache-2.0](LICENSE)
